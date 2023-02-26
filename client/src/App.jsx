@@ -10,18 +10,15 @@ import axios from "axios";
 const YOU = "you";
 const AI = "ai";
 function App() {
-
-
   const inputRef = useRef();
   const [qna, setQna] = useState([
     // { from: YOU, value: "FROM ME" },
     // { from: AI, value: ["1 MESSG FROM AI", "2 MESSG FROM AI"] },
   ]);
-  const write1=()=> {
-    var a = document.getElementsByClassName("ques")[0].innerHTML;
-    console.log(a);
-    document.getElementsByClassName("in")[0].value=a;
-    handleSend()
+  const write = (i) => {
+    var a = document.getElementsByClassName("question")[i].innerHTML;
+    document.getElementsByClassName("in")[0].value = a;
+    handleSend();
     // document.getElementsByClassName("in")[0].value="";
     // inputRef.current.value=a
   };
@@ -37,16 +34,25 @@ function App() {
     // console.log({question})
     setLoading(true);
     axios
-      .post("http://localhost:3000/chat", {
+      .post("https://chatbot-server-090w.onrender.com/chat", {
         question,
       })
       .then((response) => {
         updateQna(AI, response.data.answer);
+        if (response) {
+          // window.setInterval(function () {
+          var elem = document.getElementById("chats");
+          if (elem) {
+            console.log(elem.scrollHeight);
+            elem.scrollTop = elem.scrollHeight*2;
+          }
+          // }, 1000);
+        }
       })
       .finally(() => {
         setLoading(false);
       });
-      document.getElementsByClassName("in")[0].value="";
+    document.getElementsByClassName("in")[0].value = "";
   };
 
   const renderContent = (qna) => {
@@ -58,305 +64,264 @@ function App() {
   };
   return (
     <main class="main-container">
-      <div class="">
-        <span class="ques" onClick={()=> {write1()}}>
-          What is Twitter and how does it work?
-        </span>
-      </div>
-      <div>
-        <div class="c">
-          <input type="checkbox" id="faq-1" />
-          <h1>
-            <label for="faq-1">Audience Building Prompts</label>
-          </h1>
-
-          <div class="p">
-            <p>How do I create a Twitter account?</p>
-          </div>
-          <div class="p">
-            <p>How do I make a viral tweet?</p>
-          </div>
-          <div class="p">
-            <p>What are hashtags and how do I use them on Twitter?</p>
-          </div>
-          <div class="p">
-            <p>How do I increase my Twitter followers?</p>
-          </div>
-
-          <div class="p">
-            <p>
-              What are the first steps to take when setting up an Instagram
-              account?
-            </p>
-          </div>
-          <div class="p">
-            <p>How do I create an Instagram bio that attracts followers?</p>
-          </div>
-          <div class="p">
-            <p>
-              What type of content should I post to grow my Instagram following?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How often should I post on Instagram to keep my followers engaged?
-            </p>
-          </div>
-          <div class="p">
-            <p>How do I use hashtags to increase my reach on Instagram?</p>
-          </div>
-
-          <div class="p">
-            <p>What is TikTok and how does it work?</p>
-          </div>
-          <div class="p">
-            <p>How do I create a TikTok account?</p>
-          </div>
-          <div class="p">
-            <p>How do I make a TikTok video?</p>
-          </div>
-          <div class="p">
-            <p>What are some popular TikTok video formats?</p>
-          </div>
-          <div class="p">
-            <p>How do I edit my TikTok videos?</p>
-          </div>
-
-          <div class="p">
-            <p>How do I set up a YouTube account?</p>
-          </div>
-          <div class="p">
-            <p>
-              What type of content should I create to get followers on YouTube?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How often should I upload videos to YouTube to keep my followers
-              engaged?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How do I optimize my YouTube video titles, descriptions, and tags
-              for search?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How do I create a YouTube channel trailer to attract followers?
-            </p>
-          </div>
-        </div>
-        <div class="c">
-          <input type="checkbox" id="faq-2" />
-          <h1>
-            <label for="faq-2">Copywriting Prompts</label>
-          </h1>
-
-          <div class="p">
-            <p>What is the AIDA model and how can it be used in copywriting?</p>
-          </div>
-          <div class="p">
-            <p>How can I use the PAS formula to create persuasive copy?</p>
-          </div>
-          <div class="p">
-            <p>
-              What is the difference between a feature and a benefit in
-              copywriting?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use storytelling in my copywriting to connect with my
-              audience?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              What are some common copywriting formulas and how can they be
-              used?
-            </p>
-          </div>
-
-          <div class="p">
-            <p>
-              What are some best practices for writing headlines in copywriting?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use emotional appeals in my copywriting to create a
-              strong connection with my audience?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              What is the difference between direct response copywriting and
-              brand copywriting?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use scarcity and urgency in my copywriting to increase
-              conversions?
-            </p>
-          </div>
-        </div>
-        <div class="c">
-          <input type="checkbox" id="faq-3" />
-          <h1>
-            <label for="faq-3">High Ticket Prompts</label>
-          </h1>
-
-          <div class="p">
-            <p>What is the AIDA model and how can it be used in copywriting?</p>
-          </div>
-          <div class="p">
-            <p>How can I use the PAS formula to create persuasive copy?</p>
-          </div>
-          <div class="p">
-            <p>
-              What is the difference between a feature and a benefit in
-              copywriting?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use storytelling in my copywriting to connect with my
-              audience?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              What are some common copywriting formulas and how can they be
-              used?
-            </p>
-          </div>
-
-          <div class="p">
-            <p>
-              What are some best practices for writing headlines in copywriting?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use emotional appeals in my copywriting to create a
-              strong connection with my audience?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              What is the difference between direct response copywriting and
-              brand copywriting?
-            </p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use scarcity and urgency in my copywriting to increase
-              conversions?
-            </p>
-          </div>
-        </div>
-        <div class="c">
-          <input type="checkbox" id="faq-4" />
-          <h1>
-            <label for="faq-4">Email Marketing Prompts</label>
-          </h1>
-
-          <div class="p">
-            <p>
-              What is email list building and why is it important for a
-              business?
-            </p>
-          </div>
-          <div class="p">
-            <p>How can I grow my email list quickly and effectively?</p>
-          </div>
-          <div class="p">
-            <p>How can I get inspiration for email template designs?</p>
-          </div>
-          <div class="p">
-            <p>
-              How can I use a mobile-responsive design for my email templates?
-            </p>
-          </div>
-          <div class="p">
-            <p>What is a subject line in email marketing?</p>
-          </div>
-          <div class="p">
-            <p>What is a subject line in email marketing?</p>
-          </div>
-          <div class="p">
-            <p>
-              Why is subject line optimization important in email marketing?
-            </p>
-          </div>
-          <div class="p">
-            <p>What is clear and effective copy in email marketing?</p>
-          </div>
-          <div class="p">
-            <p>
-              How can I write clear and effective copy for my email marketing
-              campaigns?
-            </p>
-          </div>
-          <div class="p">
-            <p>What is email performance and why is it important to measure?</p>
-          </div>
-          <div class="p">
-            <p>How can I track the success of my email campaigns?</p>
-          </div>
-        </div>
-      </div>
-      {/* <div >
-        <h2 class="example-title">Search Ideas</h2>
-        <p class="example-prompt">What is chatgpt and what functionalities it can perform</p>
-        <p class="example-prompt">What is chatgpt</p>
-        <p class="example-prompt">What is chatgpt</p>
-        <p class="example-prompt">What is chatgpt</p>
-        <p class="example-prompt">What is chatgpt</p>
-        <p class="example-prompt">What is chatgpt</p>
-      </div> */}
-      <div class="container">
-        <div>
-          <img
-            src={webLogo}
-            alt=""
-            width="200px"
-            height="50px"
-            // class="avtar"
-          />
-          <div class="chats">
-            {qna.map((qna) => {
-              if (qna.from == YOU) {
-                return (
-                  <div class="send chat">
-                    <img src={userLogo} alt="" class="avtar" />
-                    <p>{renderContent(qna)}</p>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-5 col-lg-5">
+            <div class="accordion" id="accordionExample">
+              <h3
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "0.2rem 0.5rem",
+                }}
+              >
+                EXAMPLE PROMPTS
+              </h3>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="false"
+                    aria-controls="collapseOne"
+                  >
+                    Audience Building Prompts
+                  </button>
+                </h2>
+                <div
+                  id="collapseOne"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(0);
+                    }}
+                  >
+                    How do I make a viral tweet?
                   </div>
-                );
-              }
-              return (
-                <div class="recieve chat">
-                  <img src={chatLogo} alt="" class="avtar" />
-                  <p>{renderContent(qna)}</p>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(1);
+                    }}
+                  >
+                    How do I increase my Twitter followers?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(2);
+                    }}
+                  >
+                    What type of content should I post to grow my Instagram
+                    following?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(3);
+                    }}
+                  >
+                    How do I edit my TikTok videos?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(4);
+                    }}
+                  >
+                    How do I set up a YouTube account?
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              </div>
 
-        <div class="chat-input">
-          <input
-            type="text"
-            ref={inputRef}
-            class="form-control col in"
-            placeholder="Type Something"
-          />
-          <button disabled={loading} class="btn" onClick={handleSend}>
-            Send
-          </button>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    Copywriting Prompts
+                  </button>
+                </h2>
+                <div
+                  id="collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(5);
+                    }}
+                  >
+                    What is the AIDA model and how can it be used in
+                    copywriting?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(6);
+                    }}
+                  >
+                    What is the difference between a feature and a benefit in
+                    copywriting?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(7);
+                    }}
+                  >
+                    How can I use storytelling in my copywriting to connect with
+                    my audience?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(8);
+                    }}
+                  >
+                    What are some best practices for writing headlines in
+                    copywriting?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(9);
+                    }}
+                  >
+                    What is the difference between direct response copywriting
+                    and brand copywriting?
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Email Marketing Prompts
+                  </button>
+                </h2>
+                <div
+                  id="collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample"
+                >
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(10);
+                    }}
+                  >
+                    What is email list building and why is it important for a
+                    business?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(11);
+                    }}
+                  >
+                    How can I grow my email list quickly and effectively?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(12);
+                    }}
+                  >
+                    How can I get inspiration for email template designs?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(13);
+                    }}
+                  >
+                    What is a subject line in email marketing?
+                  </div>
+                  <div
+                    class="accordion-body question"
+                    onClick={() => {
+                      write(14);
+                    }}
+                  >
+                    How can I use a mobile-responsive design for my email
+                    templates?
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-7 col-lg-7">
+            <div class="container">
+              <div>
+                <img
+                  src={webLogo}
+                  alt=""
+                  width="200px"
+                  height="50px"
+                  // class="avtar"
+                />
+                <div class="chats" id="chats">
+                  {qna.map((qna) => {
+                    if (qna.from == YOU) {
+                      return (
+                        <div class="send chat">
+                          <img src={userLogo} alt="" class="avtar" />
+                          <p>{renderContent(qna)}</p>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div class="recieve chat">
+                        <img src={chatLogo} alt="" class="avtar" />
+                        <p>{renderContent(qna)}</p>
+                      </div>
+                    );
+                  })}
+                  {loading && (
+                    <div class="recieve chat">
+                      <img src={chatLogo} alt="" class="avtar" />
+                      <p>Typing...</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div class="chat-input">
+                <input
+                  type="text"
+                  ref={inputRef}
+                  class="form-control col in"
+                  placeholder="Type Something"
+                />
+                <button disabled={loading} class="btn" onClick={handleSend}>
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
