@@ -329,7 +329,7 @@ function App() {
  
       </div>
     </main>
-    <div class="container">
+    <div class="">
         <a href="https://www.getmarketestate.com">Powered by Market Estate</a>
         <br></br>
     </div>
