@@ -332,6 +332,8 @@ function App() {
     <div class="">
         <a href="https://www.getmarketestate.com">Powered by Market Estate</a>
         <br></br>
+        <br></br>
+        <br></br>
     </div>
     </>
   );
