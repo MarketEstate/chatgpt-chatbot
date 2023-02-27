@@ -63,6 +63,7 @@ function App() {
     return <p className="message-text">{value}</p>;
   };
   return (
+    <>
     <main class="main-container">
       <div class="container-fluid">
         <div class="row">
@@ -323,8 +324,16 @@ function App() {
             </div>
           </div>
         </div>
+      
+       
+ 
       </div>
     </main>
+    <div class="container">
+        <a href="https://www.getmarketestate.com">Powered by Market Estate</a>
+        <br></br>
+    </div>
+    </>
   );
 }
 
