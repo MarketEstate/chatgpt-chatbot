@@ -164,4 +164,5 @@ a{
 .question{
   cursor: pointer;
   border-bottom: 1px solid black;
+  font-size: 13px;
 }

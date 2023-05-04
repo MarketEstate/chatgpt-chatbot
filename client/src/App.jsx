@@ -44,7 +44,7 @@ function App() {
           var elem = document.getElementById("chats");
           if (elem) {
             console.log(elem.scrollHeight);
-            elem.scrollTop = elem.scrollHeight*2;
+            elem.scrollTop = elem.scrollHeight * 2;
           }
           // }, 1000);
         }
@@ -64,277 +64,293 @@ function App() {
   };
   return (
     <>
-    <main class="main-container">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12 col-md-5 col-lg-5">
-            <div class="accordion" id="accordionExample">
-              <h3
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  padding: "0.2rem 0.5rem",
-                }}
-              >
-                EXAMPLE PROMPTS
-              </h3>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="false"
-                    aria-controls="collapseOne"
-                  >
-                    Audience Building Prompts
-                  </button>
-                </h2>
-                <div
-                  id="collapseOne"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample"
+      <main class="main-container">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-md-5 col-lg-5">
+              <div class="accordion" id="accordionExample">
+                <h3
+                  style={{
+                    backgroundColor: "black",
+                    color: "white",
+                    padding: "0.3rem 0.5rem",
+                  }}
                 >
+                  Popular Real Estate Prompts
+                </h3>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="false"
+                      aria-controls="collapseOne"
+                    >
+                      Real Estate Appraisal
+                    </button>
+                  </h2>
                   <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(0);
-                    }}
+                    id="collapseOne"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample"
                   >
-                    How do I make a viral tweet?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(1);
-                    }}
-                  >
-                    How do I increase my Twitter followers?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(2);
-                    }}
-                  >
-                    What type of content should I post to grow my Instagram
-                    following?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(3);
-                    }}
-                  >
-                    How do I edit my TikTok videos?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(4);
-                    }}
-                  >
-                    How do I set up a YouTube account?
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(0);
+                      }}
+                    >
+                      You are hired to appraise a property that is located in a
+                      high-crime area. How do you take this into account when
+                      determining its value?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(1);
+                      }}
+                    >
+                      You are asked to appraise a unique property that has no
+                      comparable sales in the area. How do you go about
+                      determining its value?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(2);
+                      }}
+                    >
+                      You are appraising a property that has environmental
+                      issues. How do you take this into account when determining
+                      its value?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(3);
+                      }}
+                    >
+                      You are appraising a property that is being sold as-is.
+                      How do you take this into account when determining its
+                      value?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(4);
+                      }}
+                    >
+                      You are appraising a property that has a tenant in place.
+                      How do you take this into account when determining its
+                      value?
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo"
-                    aria-expanded="false"
-                    aria-controls="collapseTwo"
-                  >
-                    Copywriting Prompts
-                  </button>
-                </h2>
-                <div
-                  id="collapseTwo"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="headingTwo"
-                  data-bs-parent="#accordionExample"
-                >
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      Residential Real Estate
+                    </button>
+                  </h2>
                   <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(5);
-                    }}
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample"
                   >
-                    What is the AIDA model and how can it be used in
-                    copywriting?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(6);
-                    }}
-                  >
-                    What is the difference between a feature and a benefit in
-                    copywriting?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(7);
-                    }}
-                  >
-                    How can I use storytelling in my copywriting to connect with
-                    my audience?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(8);
-                    }}
-                  >
-                    What are some best practices for writing headlines in
-                    copywriting?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(9);
-                    }}
-                  >
-                    What is the difference between direct response copywriting
-                    and brand copywriting?
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(5);
+                      }}
+                    >
+                      A buyer's lender has denied their mortgage application.
+                      What steps can you take to salvage the deal?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(6);
+                      }}
+                    >
+                      A buyer has made an offer that is lower than the asking
+                      price. How do you advise your seller on responding to the
+                      offer?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(7);
+                      }}
+                    >
+                      A seller is interested in selling their property "as-is".
+                      How do you advise them on disclosing any potential issues
+                      with the property to potential buyers?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(8);
+                      }}
+                    >
+                      A seller has received an offer that is contingent on the
+                      buyer selling their own property. How do you advise your
+                      seller on responding to the offer?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(9);
+                      }}
+                    >
+                      A seller is interested in using a real estate auction to
+                      sell their property. How do you advise them on the risks
+                      and benefits of this approach?
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree"
-                    aria-expanded="false"
-                    aria-controls="collapseThree"
-                  >
-                    Email Marketing Prompts
-                  </button>
-                </h2>
-                <div
-                  id="collapseThree"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="headingThree"
-                  data-bs-parent="#accordionExample"
-                >
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree"
+                    >
+                      Property Management
+                    </button>
+                  </h2>
                   <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(10);
-                    }}
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample"
                   >
-                    What is email list building and why is it important for a
-                    business?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(11);
-                    }}
-                  >
-                    How can I grow my email list quickly and effectively?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(12);
-                    }}
-                  >
-                    How can I get inspiration for email template designs?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(13);
-                    }}
-                  >
-                    What is a subject line in email marketing?
-                  </div>
-                  <div
-                    class="accordion-body question"
-                    onClick={() => {
-                      write(14);
-                    }}
-                  >
-                    How can I use a mobile-responsive design for my email
-                    templates?
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(10);
+                      }}
+                    >
+                      Your team has just taken over a property with a high
+                      tenant turnover rate. How do you analyze the situation and
+                      come up with a plan to improve tenant retention?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(11);
+                      }}
+                    >
+                      A tenant has submitted a maintenance request that requires
+                      a specialized contractor. How do you vet and hire the
+                      contractor, and ensure they provide quality work?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(12);
+                      }}
+                    >
+                      A tenant has submitted a maintenance request for a
+                      non-emergency issue outside of normal business hours. How
+                      do you handle the request and ensure prompt resolution?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(13);
+                      }}
+                    >
+                      Your property has a high vacancy rate. How do you analyze
+                      the situation and develop a marketing plan to attract new
+                      tenants?
+                    </div>
+                    <div
+                      class="accordion-body question"
+                      onClick={() => {
+                        write(14);
+                      }}
+                    >
+                      How do you handle difficult tenants, and what strategies
+                      have you found to be most effective in resolving disputes?
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-12 col-md-7 col-lg-7">
-            <div class="container">
-              <div>
-                <img
-                  src={webLogo}
-                  alt=""
-                  width="200px"
-                  height="50px"
-                  // class="avtar"
-                />
-                <div class="chats" id="chats">
-                  {qna.map((qna) => {
-                    if (qna.from == YOU) {
+            <div class="col-12 col-md-7 col-lg-7">
+              <div class="container">
+                <div>
+                  <img
+                    src={webLogo}
+                    alt=""
+                    width="200px"
+                    height="50px"
+                    // class="avtar"
+                  />
+                  <div class="chats" id="chats">
+                    {qna.map((qna) => {
+                      if (qna.from == YOU) {
+                        return (
+                          <div class="send chat">
+                            <img src={userLogo} alt="" class="avtar" />
+                            <p>{renderContent(qna)}</p>
+                          </div>
+                        );
+                      }
                       return (
-                        <div class="send chat">
-                          <img src={userLogo} alt="" class="avtar" />
+                        <div class="recieve chat">
+                          <img src={chatLogo} alt="" class="avtar" />
                           <p>{renderContent(qna)}</p>
                         </div>
                       );
-                    }
-                    return (
+                    })}
+                    {loading && (
                       <div class="recieve chat">
                         <img src={chatLogo} alt="" class="avtar" />
-                        <p>{renderContent(qna)}</p>
+                        <p>Typing...</p>
                       </div>
-                    );
-                  })}
-                  {loading && (
-                    <div class="recieve chat">
-                      <img src={chatLogo} alt="" class="avtar" />
-                      <p>Typing...</p>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <div class="chat-input">
-                <input
-                  type="text"
-                  ref={inputRef}
-                  class="form-control col in"
-                  placeholder="Type Something"
-                />
-                <button disabled={loading} class="btn" onClick={handleSend}>
-                  Send
-                </button>
+                <div class="chat-input">
+                  <input
+                    type="text"
+                    ref={inputRef}
+                    class="form-control col in"
+                    placeholder="Type Something"
+                  />
+                  <button disabled={loading} class="btn" onClick={handleSend}>
+                    Send
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      
-       
- 
-      </div>
-    </main>
-    <div class="">
+      </main>
+      <div class="p-3">
         <a href="https://www.getmarketestate.com">Powered by Market Estate</a>
         <br></br>
         <br></br>
-        <br></br>
-    </div>
+      </div>
     </>
   );
 }
