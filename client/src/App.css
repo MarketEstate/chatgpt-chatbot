@@ -158,7 +158,7 @@ input:checked ~ h1 ~ div.p {
   max-height: 100px;
 }
 a {
-  color: steelblue;
+  color: rgb(0, 0, 0);
 }
 
 .question {
@@ -166,7 +166,7 @@ a {
   border-bottom: 1px solid black;
   font-size: 13px;
 }
-p{
+p {
   color: white;
 }
 p.message-text {
