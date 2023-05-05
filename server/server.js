@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import { Configuration, OpenAIApi } from "openai";
+import fetch from "node-fetch";
 
 dotenv.config();
 console.log(process.env.OPENAI_API_KEY);
