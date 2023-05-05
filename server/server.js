@@ -25,7 +25,7 @@ app.post('/chat', async (req, res) => {
   try {
     const question = req.body.question;
 
-    const response = await openai.createChatCompletion({
+    const response = await openai.ChatCompletion.create({
       // model: "text-davinci-003",
       // prompt:`Respond to questions in a friendly chat style.The question is: ${question}. Remove un-necessary question marks.`,
       // temperature: 0.7,
