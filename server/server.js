@@ -25,26 +25,27 @@ app.post('/chat', async (req, res) => {
   try {
     const question = req.body.question;
 
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt:`Respond to questions in a friendly chat style.The question is: ${question}. Remove un-necessary question marks.`,
-      temperature: 0.7,
-      max_tokens: 2048,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-      stop: [" AI:"," Human:"],
+    const response = await openai.createChatCompletion({
       // model: "text-davinci-003",
-      // prompt: `${question}`,
-      // temperature: 0, // Higher values means the model will take more risks.
-      // max_tokens: 2048, // The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4096).
-      // top_p: 1, // alternative to sampling with temperature, called nucleus sampling
-      // frequency_penalty: 0.5, // Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
-      // presence_penalty: 0, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+      // prompt:`Respond to questions in a friendly chat style.The question is: ${question}. Remove un-necessary question marks.`,
+      // temperature: 0.7,
+      // max_tokens: 2048,
+      // top_p: 1,
+      // frequency_penalty: 0,
+      // presence_penalty: 0,
+      // stop: [" AI:"," Human:"],
+      model: 'gpt-3.5-turbo',
+      messages: [
+          {
+              role: "system", content:
+                  `You are ChatGPT, a large language model trained by OpenAI. Answer in detail.\n`
+          },
+          { role: "user", content: prompt }
+      ]
     });
 
     res.status(200).send({
-      answer: response.data.choices[0].text,
+      answer: response.data.choices[0].message.content,
       question:question
     });
 
