@@ -31,7 +31,7 @@ app.post("/chat", async (req, res) => {
         {
           role: "system",
           content:
-            "You are ChatGPT, a large language model trained by OpenAI. Answer only to topics related to fitness, nutrition, meal plans etc.",
+            "You are ChatGPT, a large language model trained by OpenAI. Answer in detail",
         },
         { role: "user", content: question },
       ],
