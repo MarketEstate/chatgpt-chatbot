@@ -1,74 +1,108 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
+import axios from "axios";
+import { AiOutlineSend, AiOutlineAudio } from "react-icons/ai";
 import reactLogo from "./assets/react.svg";
 import webLogo from "./assets/logo.png";
 import chatLogo from "./assets/chat.png";
 import userLogo from "./assets/user.png";
 import "./App.css";
-import { useRef } from "react";
-import axios from "axios";
 
 const YOU = "you";
 const AI = "ai";
+
 function App() {
   const inputRef = useRef();
-  const [qna, setQna] = useState([
-    // { from: YOU, value: "FROM ME" },
-    // { from: AI, value: ["1 MESSG FROM AI", "2 MESSG FROM AI"] },
-  ]);
+  const [qna, setQna] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const write = (i) => {
-    var a = document.getElementsByClassName("question")[i].innerHTML;
-    document.getElementsByClassName("in")[0].value = a;
-    handleSend();
-    // document.getElementsByClassName("in")[0].value="";
-    // inputRef.current.value=a
+    const a = document.getElementsByClassName("question")[i].innerHTML;
+    inputRef.current.value = a;
   };
 
-  const [loading, setLoading] = useState(false);
   const updateQna = (from, value) => {
     setQna((qna) => [...qna, { from, value }]);
   };
+
   const handleSend = () => {
     const question = inputRef.current.value;
     updateQna(YOU, question);
-    // setQna([...qna, { from: YOU, value: question }]);
-    // console.log({question})
     setLoading(true);
+  
+    // Show "typing..." message
+    updateQna(AI, "typing...");
+  
     axios
       .post("https://chatbot-server-090w.onrender.com/chat", {
         question,
       })
       .then((response) => {
-        updateQna(AI, response.data.answer);
-        if (response) {
-          // window.setInterval(function () {
-          var elem = document.getElementById("chats");
-          if (elem) {
-            console.log(elem.scrollHeight);
-            elem.scrollTop = elem.scrollHeight * 2;
-          }
-          // }, 1000);
+        // Delay the response for better user experience
+        setTimeout(() => {
+          // Remove the "typing..." message from the Q&A list
+          setQna((qna) => qna.slice(0, qna.length - 1));
+  
+          // Add the actual answer to the Q&A list
+          updateQna(AI, response.data.answer);
+          speak(response.data.answer); // Speak the answer
+
+        }, 1000);
+  
+        const elem = document.getElementById("chats");
+        if (elem) {
+          elem.scrollTop = elem.scrollHeight * 2;
         }
       })
       .finally(() => {
         setLoading(false);
       });
-    document.getElementsByClassName("in")[0].value = "";
+  
+    inputRef.current.value = "";
+  };
+  const speak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
+  };
+  const handleSpeechToText = () => {
+    const recognition = new window.webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const speechResult = event.results[0][0].transcript;
+      inputRef.current.value = speechResult;
+      recognition.stop();
+      handleSend();
+      // speak(speechResult)
+    };
   };
 
   const renderContent = (qna) => {
-    const value = qna.value;
-    if (Array.isArray(value)) {
-      return value.map((v) => <p className="message-text">{v}</p>);
+    const { from, value } = qna;
+  
+    if (from === AI && value === "typing...") {
+      return <p className="message-typing">Typing...</p>;
     }
+  
+    if (Array.isArray(value)) {
+      return value.map((v, index) => (
+        <p className="message-text" key={index}>
+          {v}
+        </p>
+      ));
+    }
+  
     return <p className="message-text">{value}</p>;
   };
+
   return (
     <>
-      <main class="main-container">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12 col-md-5 col-lg-5">
-              <div class="accordion" id="accordionExample">
+      <main className="main-container">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12 col-md-5 col-lg-5">
+            <div class="accordion" id="accordionExample">
                 <h3
                   style={{
                     backgroundColor: "black",
@@ -292,53 +326,62 @@ function App() {
                   </div>
                 </div>
               </div>
+
             </div>
 
-            <div class="col-12 col-md-7 col-lg-7">
-              <div class="container">
+            <div className="col-12 col-md-7 col-lg-7">
+              <div className="container">
                 <div>
                   <img
                     src={webLogo}
                     alt=""
                     width="200px"
                     height="50px"
-                    // class="avtar"
+                  // className="avtar"
                   />
-                  <div class="chats" id="chats">
-                    {qna.map((qna) => {
-                      if (qna.from == YOU) {
-                        return (
-                          <div class="send chat">
-                            <img src={userLogo} alt="" class="avtar" />
-                            <p>{renderContent(qna)}</p>
-                          </div>
-                        );
-                      }
-                      return (
-                        <div class="recieve chat">
-                          <img src={chatLogo} alt="" class="avtar" />
-                          <p>{renderContent(qna)}</p>
-                        </div>
-                      );
-                    })}
+                  <div className="chats" id="chats">
+                    {qna.map((message, index) => (
+                      <div
+                        key={index}
+                        className={`chat ${message.from === YOU ? "send" : "receive"}`}
+                      >
+                        <img
+                          src={message.from === YOU ? userLogo : chatLogo}
+                          alt=""
+                          className="avtar"
+                        />
+                        {Array.isArray(message.value) ? (
+                          message.value.map((text, i) => (
+                            <p key={i} className="message-text">
+                              {text}
+                            </p>
+                          ))
+                        ) : (
+                          <p className="message-text">{message.value}</p>
+                        )}
+                      </div>
+                    ))}
                     {loading && (
-                      <div class="recieve chat">
-                        <img src={chatLogo} alt="" class="avtar" />
+                      <div className="receive chat">
+                        <img src={chatLogo} alt="" className="avtar" />
                         <p>Typing...</p>
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div class="chat-input">
+                <div className="chat-input">
                   <input
                     type="text"
                     ref={inputRef}
-                    class="form-control col in"
+                    className="form-control col in"
                     placeholder="Type Something"
                   />
-                  <button disabled={loading} class="btn" onClick={handleSend}>
-                    Send
+                  <button disabled={loading} className="btn" onClick={handleSend}>
+                    <AiOutlineSend />
+                  </button>
+                  <button className="btn" onClick={handleSpeechToText}>
+                    <AiOutlineAudio />
                   </button>
                 </div>
               </div>
@@ -346,10 +389,10 @@ function App() {
           </div>
         </div>
       </main>
-      <div class="p-3">
+      <div className="p-3">
         <a href="https://www.getmarketestate.com">Powered by Market Estate</a>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
       </div>
     </>
   );
