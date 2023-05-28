@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { AiOutlineSend, AiOutlineAudio } from "react-icons/ai";
+import { AiOutlineSend, AiOutlineAudio, AiFillPlayCircle } from "react-icons/ai";
 import reactLogo from "./assets/react.svg";
 import webLogo from "./assets/logo.png";
 import chatLogo from "./assets/chat.png";
@@ -14,6 +14,7 @@ function App() {
   const inputRef = useRef();
   const [qna, setQna] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [speakingAnswer, setSpeakingAnswer] = useState(null);
 
   const write = (i) => {
     const a = document.getElementsByClassName("question")[i].innerHTML;
@@ -28,42 +29,21 @@ function App() {
     const question = inputRef.current.value;
     updateQna(YOU, question);
     setLoading(true);
-  
-    // Show "typing..." message
-    updateQna(AI, "typing...");
-  
+
     axios
       .post("https://chatbot-server-090w.onrender.com/chat", {
         question,
       })
       .then((response) => {
-        // Delay the response for better user experience
-        setTimeout(() => {
-          // Remove the "typing..." message from the Q&A list
-          setQna((qna) => qna.slice(0, qna.length - 1));
-  
-          // Add the actual answer to the Q&A list
-          updateQna(AI, response.data.answer);
-          speak(response.data.answer); // Speak the answer
-
-        }, 1000);
-  
-        const elem = document.getElementById("chats");
-        if (elem) {
-          elem.scrollTop = elem.scrollHeight * 2;
-        }
+        updateQna(AI, response.data.answer);
       })
       .finally(() => {
         setLoading(false);
       });
-  
+
     inputRef.current.value = "";
   };
-  const speak = (text) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "en-US";
-    speechSynthesis.speak(utterance);
-  };
+
   const handleSpeechToText = () => {
     const recognition = new window.webkitSpeechRecognition();
     recognition.lang = "en-US";
@@ -73,18 +53,16 @@ function App() {
       const speechResult = event.results[0][0].transcript;
       inputRef.current.value = speechResult;
       recognition.stop();
-      handleSend();
-      // speak(speechResult)
     };
   };
 
+  const handleSpeakAnswer = (answer) => {
+    const msg = new SpeechSynthesisUtterance(answer);
+    speechSynthesis.speak(msg);
+  };
+
   const renderContent = (qna) => {
-    const { from, value } = qna;
-  
-    if (from === AI && value === "typing...") {
-      return <p className="message-typing">Typing...</p>;
-    }
-  
+    const value = qna.value;
     if (Array.isArray(value)) {
       return value.map((v, index) => (
         <p className="message-text" key={index}>
@@ -92,8 +70,17 @@ function App() {
         </p>
       ));
     }
-  
-    return <p className="message-text">{value}</p>;
+    return (
+      <div className="message-text">
+        {value}
+        <button
+          className="btn speak-answer-btn"
+          onClick={() => handleSpeakAnswer(value)}
+        >
+          <AiFillPlayCircle />
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -332,41 +319,25 @@ function App() {
             <div className="col-12 col-md-7 col-lg-7">
               <div className="container">
                 <div>
-                  <img
-                    src={webLogo}
-                    alt=""
-                    width="200px"
-                    height="50px"
-                  // className="avtar"
-                  />
+                  <img src={webLogo} alt="" width="200px" height="50px" />
                   <div className="chats" id="chats">
-                    {qna.map((message, index) => (
+                    {/* Chat messages */}
+                    {qna.map((msg, index) => (
                       <div
                         key={index}
-                        className={`chat ${message.from === YOU ? "send" : "receive"}`}
+                        className={`message ${
+                          msg.from === AI ? "ai" : "you"
+                        }`}
                       >
-                        <img
-                          src={message.from === YOU ? userLogo : chatLogo}
-                          alt=""
-                          className="avtar"
-                        />
-                        {Array.isArray(message.value) ? (
-                          message.value.map((text, i) => (
-                            <p key={i} className="message-text">
-                              {text}
-                            </p>
-                          ))
+                        {msg.from === YOU ? (
+                          <img src={userLogo} alt="User" className="avtar" />
                         ) : (
-                          <p className="message-text">{message.value}</p>
+                          <img src={chatLogo} alt="Chat" className="avtar" />
                         )}
+                        {renderContent(msg)}
                       </div>
                     ))}
-                    {loading && (
-                      <div className="receive chat">
-                        <img src={chatLogo} alt="" className="avtar" />
-                        <p>Typing...</p>
-                      </div>
-                    )}
+                    {loading && <div className="message typing">Typing...</div>}
                   </div>
                 </div>
 
@@ -377,7 +348,11 @@ function App() {
                     className="form-control col in"
                     placeholder="Type Something"
                   />
-                  <button disabled={loading} className="btn" onClick={handleSend}>
+                  <button
+                    disabled={loading}
+                    className="btn"
+                    onClick={handleSend}
+                  >
                     <AiOutlineSend />
                   </button>
                   <button className="btn" onClick={handleSpeechToText}>

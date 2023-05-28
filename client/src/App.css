@@ -75,11 +75,12 @@ body {
 .recieve {
   background-color: #0940ff;
 }
-
+/* 
 .message-text {
+  
   margin: 1px;
   font-size: 13px;
-}
+} */
 
 .example-prompt {
   background-color: #10163a;
@@ -198,4 +199,51 @@ div div h3 {
 }
 div.accordion {
   border-width: 3px;
+}
+.message.you {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.message.you .message-content {
+  display: inline-block;
+  background-color: #e5e5ea;
+  color: #000;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding: 8px 16px;
+  margin-left: 8px;
+}
+
+.message.you .message-avatar {
+  display: none;
+}
+
+.message.you .speak-answer-btn {
+  margin-left: 8px;
+}
+
+.message.ai {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.message.ai .message-content {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding: 8px 16px;
+  margin-right: 8px;
+}
+
+.message.ai .speak-answer-btn {
+  margin-right: 8px;
 }
